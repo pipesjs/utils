@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src -d .",
-    "bundle": "browserify --external web-streams-polyfill index.js > dist/pipes.core.js",
-    "minify": "uglifyjs dist/pipes.core.js -o dist/pipes.core.min.js -c",
+    "bundle": "browserify --external @pipes-core index.js > dist/pipes.utils.js",
+    "minify": "uglifyjs dist/pipes.utils.js -o dist/pipes.utils.min.js -c",
     "dist": "npm run bundle && npm run minify",
     "build-all": "npm run build && npm run dist",
     "prepublish": "npm run build-all",
