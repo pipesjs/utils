@@ -21,4 +21,5 @@
 // }
 //
 // export default fns;
+"use strict";
 },{}]},{},[1]);

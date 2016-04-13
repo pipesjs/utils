@@ -20,3 +20,4 @@
 // }
 //
 // export default fns;
+"use strict";
