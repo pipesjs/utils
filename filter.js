@@ -21,10 +21,9 @@ function filter(pred) {
 
 // Browserify compat
 // filter :: Function -> TransformStream
-// filter function takes a string as
-// argument and returns a transform stream
-// that extracts the passed property from
-// incoming values.
+// filter function takes a predicate function
+// as argument and returns a transform stream
+// that only emits values that satisfy the predicate.
 //
 
 if (typeof module !== "undefined") module.exports = filter;

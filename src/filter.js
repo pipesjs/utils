@@ -1,8 +1,7 @@
 // filter :: Function -> TransformStream
-// filter function takes a string as
-// argument and returns a transform stream
-// that extracts the passed property from
-// incoming values.
+// filter function takes a predicate function
+// as argument and returns a transform stream
+// that only emits values that satisfy the predicate.
 //
 
 import Pipe from "@pipes/core/pipe";
