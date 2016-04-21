@@ -12,6 +12,9 @@ export function createTestReadable (data) {
   if ( !data )
     data = [1,2,3,4,5];
 
+  // Get a copy of data
+  data = data.slice(0);
+
   const signals = {
     init: Symbol(),
     cancel: Symbol()
