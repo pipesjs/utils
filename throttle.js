@@ -44,7 +44,7 @@ function throttle() {
 }
 
 // Browserify compat
-// throttle :: Int -> TransformStream
+// throttle :: Int -> Boolean -> TransformStream
 // throttle function takes an int n and
 // returns a transform stream that throttles
 // the incoming values by n ms, only producing

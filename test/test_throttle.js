@@ -29,7 +29,6 @@ test("check flow", done => {
   // End case
   broker.on(writable.signals.close, () => {
     // Make sure result array
-    console.log(res);
     assert( res.length <= ( input.length / 2 ) );
 
     done();
@@ -39,8 +38,10 @@ test("check flow", done => {
   assert.doesNotThrow( () => {
     connect(
       readable,
+
       // Add first element to head
       new Pipe.async( delay, { init: input[0] } ),
+
       throttle( 2 * interval, false ),
       writable
     );
