@@ -14,11 +14,11 @@ suite("throttle");
 let
   input = [1,2,3,4,5,6],
   interval = 100,
-  delay = chunk => new Promise( resolve => {
+  delay = interval => chunk => new Promise( resolve => {
     global.setTimeout( () => resolve( chunk ), interval );
   });
 
-test("check flow", done => {
+function tester( factor, done ) {
   let readable, writable, res=[];
 
   // Create test streams
@@ -29,7 +29,7 @@ test("check flow", done => {
   // End case
   broker.on(writable.signals.close, () => {
     // Make sure result array
-    assert( res.length <= ( input.length / 2 ) );
+    assert( res.length <= ( input.length / factor ) );
 
     done();
   });
@@ -40,11 +40,29 @@ test("check flow", done => {
       readable,
 
       // Add first element to head
-      new Pipe.async( delay, { init: input[0] } ),
+      new Pipe.async( delay( interval ), { init: input[0] } ),
 
-      throttle( 2 * interval, false ),
+      throttle( factor * interval, false ),
       writable
     );
   });
-});
+}
 
+test("check flow", done => {
+  let
+    [[d1, p1], [d2, p2], [d3, p3]] = (function* () {
+      while( true ) {
+        let d, p;
+
+        p = new Promise( r => { d=r; });
+
+        yield [ d, p ];
+      }
+    })();
+
+  tester( 1, d1 );
+  tester( 2, d2 );
+  tester( 3, d3 );
+
+  Promise.all([ p1, p2, p3 ]).then( () => done() );
+});
