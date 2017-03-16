@@ -12,7 +12,7 @@ function batch(size) {
   var acc = [];
 
   return new _streams.TransformStream({
-    transform: function transform(chunk, enqueue, done) {
+    transform: function transform(chunk, controller) {
       // Add chunk to batch
       acc.push(chunk);
 
@@ -20,17 +20,15 @@ function batch(size) {
       if (!(acc.length % size)) {
 
         // Push acc and reset
-        enqueue(acc);
+        controller.enqueue(acc);
         acc = [];
       }
-
-      return done();
     },
-    flush: function flush(enqueue, close) {
+    flush: function flush(controller) {
       // If any unfinished batch remains, enqueue
-      if (acc.length) enqueue(acc);
+      if (acc.length) controller.enqueue(acc);
 
-      close();
+      controller.close();
     }
   });
 }

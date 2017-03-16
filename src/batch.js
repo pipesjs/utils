@@ -13,7 +13,7 @@ export default function batch(size) {
 
   return new TransformStream({
 
-    transform( chunk, enqueue, done ) {
+    transform( chunk, controller ) {
       // Add chunk to batch
       acc.push( chunk );
 
@@ -21,19 +21,17 @@ export default function batch(size) {
       if ( !( acc.length % size ) ) {
 
         // Push acc and reset
-        enqueue( acc );
+        controller.enqueue( acc );
         acc = [];
       }
-
-      return done();
     },
 
-    flush( enqueue, close ) {
+    flush( controller ) {
       // If any unfinished batch remains, enqueue
       if ( acc.length )
-        enqueue( acc );
+        controller.enqueue( acc );
 
-      close();
+      controller.close();
     }
   });
 }
@@ -41,4 +39,3 @@ export default function batch(size) {
 // Browserify compat
 if ( typeof module !== "undefined" )
   module.exports = batch;
-
