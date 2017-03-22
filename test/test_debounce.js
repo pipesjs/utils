@@ -1,3 +1,5 @@
+import "babel-polyfill";
+
 import assert from "assert";
 import connect from "@pipes/core/connect";
 import Pipe from "@pipes/core/pipe";
