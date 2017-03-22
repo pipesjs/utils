@@ -8,8 +8,8 @@ exports.default = throttle;
 var _streams = require("@pipes/core/streams");
 
 function throttle() {
-  var interval = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
-  var head = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
+  var interval = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+  var head = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
 
   // Throttle state
@@ -23,22 +23,20 @@ function throttle() {
 
   // Return stream
   return new _streams.TransformStream({
-    transform: function transform(chunk, enqueue, done) {
+    transform: function transform(chunk, controller) {
       // Check if throttle ready
       if (ready) {
 
         // Push and reset
-        enqueue(chunk);
+        controller.enqueue(chunk);
         ready = false;
       }
-
-      return done();
     },
-    flush: function flush(enqueue, close) {
+    flush: function flush(controller) {
       // Clear timer
       timer && global.clearInterval(timer);
 
-      close();
+      controller.close();
     }
   });
 }

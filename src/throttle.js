@@ -20,23 +20,21 @@ export default function throttle(interval=0, head=true) {
   // Return stream
   return new TransformStream({
 
-    transform( chunk, enqueue, done ) {
+    transform( chunk, controller ) {
       // Check if throttle ready
       if ( ready ) {
 
         // Push and reset
-        enqueue( chunk );
+        controller.enqueue( chunk );
         ready = false;
       }
-
-      return done();
     },
 
-    flush( enqueue, close ) {
+    flush( controller ) {
       // Clear timer
       timer && global.clearInterval( timer );
 
-      close();
+      controller.close();
     }
   });
 }
@@ -44,4 +42,3 @@ export default function throttle(interval=0, head=true) {
 // Browserify compat
 if ( typeof module !== "undefined" )
   module.exports = throttle;
-
