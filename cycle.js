@@ -40,11 +40,9 @@ function cycle(iterator) {
         }
       }
     }, _callee, this);
-  }), { init: null });
-
-  var readable = _ref.readable;
-  var writable = _ref.writable;
-
+  }), { init: null }),
+      readable = _ref.readable,
+      writable = _ref.writable;
 
   return readable;
 }

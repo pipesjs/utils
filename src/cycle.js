@@ -18,6 +18,7 @@ export default function cycle( iterator ) {
     while ( true ) {
       yield* iterator;
     }
+
   }, { init: null });
 
   return readable;
@@ -26,6 +27,3 @@ export default function cycle( iterator ) {
 // Browserify compat
 if ( typeof module !== "undefined" )
   module.exports = cycle;
-
-
-

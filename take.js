@@ -8,7 +8,10 @@ exports.default = take;
 var _streams = require("@pipes/core/streams");
 
 function take(count) {
-  var
+  var readable = void 0,
+      writable = void 0,
+
+
   // Cleanup fn for writable
   close = void 0,
       closeFn = function closeFn(controller) {
@@ -27,6 +30,7 @@ function take(count) {
       }
 
       close();
+      writable._writer.close();
     };
   },
 
@@ -35,8 +39,7 @@ function take(count) {
   error = void 0,
       errorFn = function errorFn(controller) {
     return controller.error.bind(controller);
-  },
-
+  };
 
   // Readable
   readable = new _streams.ReadableStream({
@@ -46,8 +49,7 @@ function take(count) {
       error = errorFn(controller);
       close = closeFn(controller);
     }
-  }),
-
+  });
 
   // Writable
   writable = new _streams.WritableStream({

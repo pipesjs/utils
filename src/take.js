@@ -9,6 +9,8 @@ import { ReadableStream, WritableStream } from "@pipes/core/streams";
 
 export default function take( count ) {
   let
+    readable, writable,
+
     // Cleanup fn for writable
     close,
     closeFn = controller => () =>
@@ -23,28 +25,29 @@ export default function take( count ) {
         }
 
         close();
+        writable._writer.close();
       },
 
     // Error handler for writable
     error,
-    errorFn = controller => controller.error.bind( controller ),
+    errorFn = controller => controller.error.bind( controller );
 
-    // Readable
-    readable = new ReadableStream({
-      start( controller ) {
-        // Init pass and err function
-        write = writeFn( controller );
-        error = errorFn( controller );
-        close = closeFn( controller );
-      }
-    }),
+  // Readable
+  readable = new ReadableStream({
+    start( controller ) {
+      // Init pass and err function
+      write = writeFn( controller );
+      error = errorFn( controller );
+      close = closeFn( controller );
+    }
+  });
 
-    // Writable
-    writable = new WritableStream({
-      write,
-      close,
-      error
-    });
+  // Writable
+  writable = new WritableStream({
+    write,
+    close,
+    error
+  });
 
   return {
     readable,
