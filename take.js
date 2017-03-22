@@ -9,11 +9,24 @@ var _streams = require("@pipes/core/streams");
 
 function take(count) {
   var
+  // Cleanup fn for writable
+  close = void 0,
+      closeFn = function closeFn(controller) {
+    return function () {
+      return !controller._closeRequested && controller.close();
+    };
+  },
+
+
   // Function that writes chunks to readable
   write = void 0,
       writeFn = function writeFn(controller) {
     return function (chunk) {
-      return count-- > 0 ? controller.enqueue(chunk) : controller.close();
+      if (count-- > 0) {
+        return controller.enqueue(chunk);
+      }
+
+      close();
     };
   },
 
@@ -21,18 +34,7 @@ function take(count) {
   // Error handler for writable
   error = void 0,
       errorFn = function errorFn(controller) {
-    return function (e) {
-      return controller.error(e);
-    };
-  },
-
-
-  // Cleanup fn for writable
-  close = void 0,
-      closeFn = function closeFn(controller) {
-    return function () {
-      return controller.close();
-    };
+    return controller.error.bind(controller);
   },
 
 
