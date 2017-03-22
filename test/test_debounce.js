@@ -17,7 +17,7 @@ suite("debounce");
 
 let
   [ min, max ] = [ 50, 100 ],
-  factor = Math.floor( (max + min ) / 2 ),
+  factor = Math.ceil( (max + min ) / 2 ),
   genRand = ( min, max ) => Math.random() * ( max - min ) + min,
   randDelay = (min, max) => chunk => new Promise( resolve => {
     global.setTimeout( () => resolve( Date.now() ), genRand( min, max ) );
@@ -49,13 +49,11 @@ test("check flow", done => {
     });
 
   // Connect the streams
-  assert.doesNotThrow( () => {
-    connect(
-      readable,
-      new Pipe.async( randDelay( min, max ) ),
-      debounce( factor, false ),
-      take( 3 ),
-      writable
-    );
-  });
+  connect(
+    readable,
+    new Pipe.async( randDelay( min, max ) ),
+    debounce( factor, false ),
+    take( 3 ),
+    writable
+  );
 });

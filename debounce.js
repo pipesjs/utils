@@ -12,8 +12,8 @@ var _pipe2 = _interopRequireDefault(_pipe);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function debounce() {
-  var wait = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
-  var head = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
+  var wait = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+  var head = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
   var ready = head,
       last = Date.now();

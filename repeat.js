@@ -35,11 +35,9 @@ function repeat(value) {
         }
       }
     }, _callee, this);
-  }), { init: value });
-
-  var readable = _ref.readable;
-  var writable = _ref.writable;
-
+  }), { init: value }),
+      readable = _ref.readable,
+      writable = _ref.writable;
 
   return readable;
 }
