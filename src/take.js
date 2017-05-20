@@ -1,3 +1,5 @@
+// @flow
+
 // take :: Int -> { readable, writable }
 // take function takes an int n and
 // returns a transform stream
@@ -5,20 +7,27 @@
 // from the input stream.
 //
 
+import type {
+  ReadableWritable,
+  ReadableStreamController
+
+} from "@pipes/core/streams";
+
 import { ReadableStream, WritableStream } from "@pipes/core/streams";
 
-export default function take( count ) {
+export default function take( count: number ): ReadableWritable {
   let
-    readable, writable,
+    readable: ReadableStream,
+    writable: WritableStream,
 
     // Cleanup fn for writable
-    close,
-    closeFn = controller => () =>
-      !controller._closeRequested && controller.close(),
+    close: ()=>void,
+    closeFn = (controller: ReadableStreamController) =>
+      () => { !controller._closeRequested && controller.close() },
 
     // Function that writes chunks to readable
-    write,
-    writeFn = controller =>
+    write: (mixed)=>?mixed,
+    writeFn = (controller: ReadableStreamController) =>
       chunk => {
         if ( count-- > 0 ) {
           return controller.enqueue( chunk );
@@ -29,12 +38,13 @@ export default function take( count ) {
       },
 
     // Error handler for writable
-    error,
-    errorFn = controller => controller.error.bind( controller );
+    error: ()=>void,
+    errorFn = (controller: ReadableStreamController) =>
+      controller.error.bind( controller );
 
   // Readable
   readable = new ReadableStream({
-    start( controller ) {
+    start( controller: ReadableStreamController ) {
       // Init pass and err function
       write = writeFn( controller );
       error = errorFn( controller );
@@ -55,6 +65,10 @@ export default function take( count ) {
   };
 }
 
+// FIXME: Internal flow.js resolution problem workaround
+export const _take = take;
+
 // Browserify compat
 if ( typeof module !== "undefined" )
+  // $FlowFixMe
   module.exports = take;
