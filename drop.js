@@ -27,6 +27,7 @@ function drop(count) {
 
 // FIXME: Internal flow.js resolution problem workaround
 var _drop = exports._drop = drop;
+drop._drop = drop;
 
 // Browserify compat
 if (typeof module !== "undefined")

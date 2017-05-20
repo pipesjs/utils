@@ -74,6 +74,7 @@ function take(count) {
 
 // FIXME: Internal flow.js resolution problem workaround
 var _take = exports._take = take;
+take._take = take;
 
 // Browserify compat
 if (typeof module !== "undefined")

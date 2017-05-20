@@ -14,6 +14,7 @@ var _take = require("./take");
 //
 
 function head() {
+  console.log(_take._take);
   return (0, _take._take)(1);
 }
 
