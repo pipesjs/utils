@@ -1,3 +1,5 @@
+// @flow
+
 // debounce :: Int -> Boolean -> TransformStream
 // debounce function takes an int n and
 // returns a transform stream that debounces
@@ -5,17 +7,21 @@
 // values with n ms delay between them and dropping the rest.
 //
 
+import type { ReadableWritable } from "@pipes/core/streams";
+
 import pipe from "@pipes/core/pipe";
 
-export default function debounce( wait=0, head=true ) {
+export default function debounce(
+    wait: number=0, head: boolean=true
+): ReadableWritable {
     let
-      ready = head,
-      last = Date.now();
+      ready: boolean = head,
+      last: number = Date.now();
 
-  return new pipe( function debouncer(chunk) {
+  return new pipe( function debouncer(chunk: mixed): ?mixed {
     let
-      now = Date.now(),
-      test = ready;
+      now: number = Date.now(),
+      test: boolean = ready;
 
     // Reset
     ready = ( now - last ) >= wait;
@@ -27,5 +33,5 @@ export default function debounce( wait=0, head=true ) {
 
 // Browserify compat
 if ( typeof module !== "undefined" )
+  // $FlowFixMe
   module.exports = debounce;
-
