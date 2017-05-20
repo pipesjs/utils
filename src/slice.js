@@ -1,3 +1,5 @@
+// @flow
+
 // slice :: Int -> Int -> TransformStream
 // slice function takes an int m and an int n,
 // returns a transform stream
@@ -6,12 +8,14 @@
 // from the input stream.
 //
 
+import type { ReadableWritable } from "@pipes/core/streams";
+
 import chain from "@pipes/core/chain";
 
-import drop from "./drop";
-import take from "./take";
+import { _drop as drop } from "./drop";
+import { _take as take } from "./take";
 
-export default function slice(beg, end) {
+export default function slice(beg: number, end: number): ReadableWritable {
 
   return chain(
     drop( beg ),
@@ -22,6 +26,5 @@ export default function slice(beg, end) {
 
 // Browserify compat
 if ( typeof module !== "undefined" )
+  // $FlowFixMe
   module.exports = slice;
-
-
