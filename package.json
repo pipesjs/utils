@@ -6,6 +6,7 @@
   "scripts": {
     "build": "babel src -d .",
     "bundle": "browserify --external @pipes-core index.js > dist/pipes.utils.js",
+    "flow": "flow",
     "minify": "uglifyjs dist/pipes.utils.js -o dist/pipes.utils.min.js -c",
     "dist": "npm run bundle && npm run minify",
     "build-all": "npm run build && npm run dist",
@@ -31,14 +32,16 @@
     "@pipes/core": "*"
   },
   "devDependencies": {
-    "babel-cli": "^6.6.4",
+    "babel-cli": "^6.24.1",
     "babel-plugin-transform-async-to-generator": "^6.5.0",
     "babel-polyfill": "^6.6.1",
     "babel-preset-es2015": "^6.6.0",
+    "babel-preset-flow": "^6.23.0",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.6.0",
     "babel-runtime": "^6.6.1",
     "browserify": "^13.0.0",
+    "flow-bin": "^0.46.0",
     "mocha": "^2.4.5",
     "uglify-js": "^2.6.2"
   }
