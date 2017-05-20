@@ -1,16 +1,20 @@
+// @flow
+
 // head :: TransformStream
 // head function returns a transform stream
 // that takes the first value from the input stream
 // and enqueues it on the output stream.
 //
 
-import take from "./take";
+import type { ReadableWritable } from "@pipes/core/streams";
 
-export default function head() {
+import { _take as take } from "./take";
+
+export default function head(): ReadableWritable {
   return take(1);
 }
 
 // Browserify compat
 if ( typeof module !== "undefined" )
+  // $FlowFixMe
   module.exports = head;
-
