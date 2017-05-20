@@ -1,3 +1,5 @@
+// @flow
+
 // throttle :: Int -> Boolean -> TransformStream
 // throttle function takes an int n and
 // returns a transform stream that throttles
@@ -5,12 +7,17 @@
 // values every n ms and dropping the rest.
 //
 
+import type { ReadableStreamController } from "@pipes/core/streams";
+
 import { TransformStream } from "@pipes/core/streams";
 
-export default function throttle(interval=0, head=true) {
+export default function throttle(
+    interval: number=0, head: boolean=true
+): TransformStream {
 
   // Throttle state
-  let ready = head, timer;
+  let ready: boolean = head,
+      timer;
 
   // Set timer
   timer = global.setInterval( () => {
@@ -20,7 +27,7 @@ export default function throttle(interval=0, head=true) {
   // Return stream
   return new TransformStream({
 
-    transform( chunk, controller ) {
+    transform( chunk: mixed, controller: ReadableStreamController ) {
       // Check if throttle ready
       if ( ready ) {
 
@@ -30,7 +37,7 @@ export default function throttle(interval=0, head=true) {
       }
     },
 
-    flush( controller ) {
+    flush( controller: ReadableStreamController ) {
       // Clear timer
       timer && global.clearInterval( timer );
 
@@ -41,4 +48,5 @@ export default function throttle(interval=0, head=true) {
 
 // Browserify compat
 if ( typeof module !== "undefined" )
+  // $FlowFixMe
   module.exports = throttle;
