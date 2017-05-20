@@ -7,6 +7,13 @@ exports.default = batch;
 
 var _streams = require("@pipes/core/streams");
 
+// batch :: Int -> TransformStream
+// batch function takes an int n and
+// returns a transform stream that batches the
+// incoming values in arrays of lengths no
+// more than n.
+//
+
 function batch(size) {
 
   var acc = [];
@@ -34,11 +41,6 @@ function batch(size) {
 }
 
 // Browserify compat
-// batch :: Int -> TransformStream
-// batch function takes an int n and
-// returns a transform stream that batches the
-// incoming values in arrays of lengths no
-// more than n.
-//
-
-if (typeof module !== "undefined") module.exports = batch;
+if (typeof module !== "undefined")
+  // $FlowFixMe
+  module.exports = batch;

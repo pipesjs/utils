@@ -11,6 +11,13 @@ var _pipe2 = _interopRequireDefault(_pipe);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// uniq :: TransformStream
+// uniq function returns a transform stream
+// that keeps only the unique values
+// from the input stream
+// and enqueues it on the output stream.
+//
+
 function uniq() {
   var seen = new Set();
 
@@ -27,11 +34,6 @@ function uniq() {
 }
 
 // Browserify compat
-// uniq :: TransformStream
-// uniq function returns a transform stream
-// that keeps only the unique values
-// from the input stream
-// and enqueues it on the output stream.
-//
-
-if (typeof module !== "undefined") module.exports = uniq;
+if (typeof module !== "undefined")
+  // $FlowFixMe
+  module.exports = uniq;

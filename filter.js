@@ -11,6 +11,12 @@ var _pipe2 = _interopRequireDefault(_pipe);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// filter :: Function -> TransformStream
+// filter function takes a predicate function
+// as argument and returns a transform stream
+// that only emits values that satisfy the predicate.
+//
+
 function filter(pred) {
 
   return new _pipe2.default(function (chunk) {
@@ -20,10 +26,6 @@ function filter(pred) {
 }
 
 // Browserify compat
-// filter :: Function -> TransformStream
-// filter function takes a predicate function
-// as argument and returns a transform stream
-// that only emits values that satisfy the predicate.
-//
-
-if (typeof module !== "undefined") module.exports = filter;
+if (typeof module !== "undefined")
+  // $FlowFixMe
+  module.exports = filter;

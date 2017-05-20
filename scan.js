@@ -11,6 +11,17 @@ var _pipe2 = _interopRequireDefault(_pipe);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// scan :: Function -> Any -> TransformStream
+// scan function takes a reducer function and
+// an optional init value as arguments and
+// returns a transform stream that applies the
+// function to the incoming values and enqueues
+// accumulation of the results.
+//
+// If an init value is not passed, the first
+// incoming value is treated as one.
+//
+
 function scan(func, init) {
 
   var res = [],
@@ -34,15 +45,6 @@ function scan(func, init) {
 }
 
 // Browserify compat
-// scan :: Function -> Any -> TransformStream
-// scan function takes a reducer function and
-// an optional init value as arguments and
-// returns a transform stream that applies the
-// function to the incoming values and enqueues
-// accumulation of the results.
-//
-// If an init value is not passed, the first
-// incoming value is treated as one.
-//
-
-if (typeof module !== "undefined") module.exports = scan;
+if (typeof module !== "undefined")
+  // $FlowFixMe
+  module.exports = scan;

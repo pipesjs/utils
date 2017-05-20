@@ -11,20 +11,10 @@ var _chain2 = _interopRequireDefault(_chain);
 
 var _drop = require("./drop");
 
-var _drop2 = _interopRequireDefault(_drop);
-
 var _take = require("./take");
-
-var _take2 = _interopRequireDefault(_take);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function slice(beg, end) {
-
-  return (0, _chain2.default)((0, _drop2.default)(beg), (0, _take2.default)(end - beg));
-}
-
-// Browserify compat
 // slice :: Int -> Int -> TransformStream
 // slice function takes an int m and an int n,
 // returns a transform stream
@@ -33,4 +23,12 @@ function slice(beg, end) {
 // from the input stream.
 //
 
-if (typeof module !== "undefined") module.exports = slice;
+function slice(beg, end) {
+
+  return (0, _chain2.default)((0, _drop._drop)(beg), (0, _take._take)(end - beg));
+}
+
+// Browserify compat
+if (typeof module !== "undefined")
+  // $FlowFixMe
+  module.exports = slice;

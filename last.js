@@ -11,6 +11,12 @@ var _accumulate2 = _interopRequireDefault(_accumulate);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// last :: TransformStream
+// last function returns a transform stream
+// that takes the last value from the input stream
+// and enqueues it on the output stream.
+//
+
 function last() {
   return new _accumulate2.default(function (a, b) {
     return b;
@@ -18,10 +24,6 @@ function last() {
 }
 
 // Browserify compat
-// last :: TransformStream
-// last function returns a transform stream
-// that takes the last value from the input stream
-// and enqueues it on the output stream.
-//
-
-if (typeof module !== "undefined") module.exports = last;
+if (typeof module !== "undefined")
+  // $FlowFixMe
+  module.exports = last;

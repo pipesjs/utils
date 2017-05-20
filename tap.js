@@ -22,6 +22,8 @@ function tap(func) {
 }
 
 // Browserify compat
+
+
 // tap :: Function -> TransformStream
 // tap function takes a function as
 // argument and returns a transform stream
@@ -29,4 +31,6 @@ function tap(func) {
 // values before re-emitting them.
 //
 
-if (typeof module !== "undefined") module.exports = tap;
+if (typeof module !== "undefined")
+  // $FlowFixMe
+  module.exports = tap;

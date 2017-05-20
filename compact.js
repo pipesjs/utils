@@ -11,6 +11,12 @@ var _pipe2 = _interopRequireDefault(_pipe);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// compact :: TransformStream
+// compact function returns a transform stream
+// that spits out only truthy
+// values from the input stream.
+//
+
 function compact() {
   return new _pipe2.default(function compacter(chunk) {
     return chunk ? chunk : void 0;
@@ -18,10 +24,6 @@ function compact() {
 }
 
 // Browserify compat
-// compact :: TransformStream
-// compact function returns a transform stream
-// that spits out only truthy
-// values from the input stream.
-//
-
-if (typeof module !== "undefined") module.exports = compact;
+if (typeof module !== "undefined")
+  // $FlowFixMe
+  module.exports = compact;

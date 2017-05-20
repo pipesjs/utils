@@ -3,9 +3,17 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports._take = undefined;
 exports.default = take;
 
 var _streams = require("@pipes/core/streams");
+
+// take :: Int -> { readable, writable }
+// take function takes an int n and
+// returns a transform stream
+// that takes the first n values
+// from the input stream.
+//
 
 function take(count) {
   var readable = void 0,
@@ -16,7 +24,7 @@ function take(count) {
   close = void 0,
       closeFn = function closeFn(controller) {
     return function () {
-      return !controller._closeRequested && controller.close();
+      !controller._closeRequested && controller.close();
     };
   },
 
@@ -64,12 +72,10 @@ function take(count) {
   };
 }
 
-// Browserify compat
-// take :: Int -> { readable, writable }
-// take function takes an int n and
-// returns a transform stream
-// that takes the first n values
-// from the input stream.
-//
+// FIXME: Internal flow.js resolution problem workaround
+var _take = exports._take = take;
 
-if (typeof module !== "undefined") module.exports = take;
+// Browserify compat
+if (typeof module !== "undefined")
+  // $FlowFixMe
+  module.exports = take;

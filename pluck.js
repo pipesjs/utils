@@ -11,9 +11,18 @@ var _pipe2 = _interopRequireDefault(_pipe);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// pluck :: String -> TransformStream
+// pluck function takes a string as
+// argument and returns a transform stream
+// that extracts the passed property from
+// incoming values.
+//
+
 function pluck(prop) {
 
-  return new _pipe2.default(function (chunk) {
+  return new _pipe2.default(function () {
+    var chunk = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
 
     var el = chunk[prop];
 
@@ -22,11 +31,6 @@ function pluck(prop) {
 }
 
 // Browserify compat
-// pluck :: String -> TransformStream
-// pluck function takes a string as
-// argument and returns a transform stream
-// that extracts the passed property from
-// incoming values.
-//
-
-if (typeof module !== "undefined") module.exports = pluck;
+if (typeof module !== "undefined")
+  // $FlowFixMe
+  module.exports = pluck;

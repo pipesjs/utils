@@ -11,12 +11,21 @@ var _pipe2 = _interopRequireDefault(_pipe);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// pick :: ...String -> TransformStream
+// pick function takes any number of strings
+// as arguments and returns a transform stream
+// that extracts the passed property names from
+// incoming values.
+//
+
 function pick() {
   for (var _len = arguments.length, props = Array(_len), _key = 0; _key < _len; _key++) {
     props[_key] = arguments[_key];
   }
 
-  return new _pipe2.default(function (chunk) {
+  return new _pipe2.default(function () {
+    var chunk = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
     var res = {};
 
     var _iteratorNormalCompletion = true;
@@ -49,11 +58,6 @@ function pick() {
 }
 
 // Browserify compat
-// pick :: ...String -> TransformStream
-// pick function takes any number of strings
-// as arguments and returns a transform stream
-// that extracts the passed property names from
-// incoming values.
-//
-
-if (typeof module !== "undefined") module.exports = pick;
+if (typeof module !== "undefined")
+  // $FlowFixMe
+  module.exports = pick;

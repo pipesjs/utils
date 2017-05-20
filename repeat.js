@@ -11,6 +11,12 @@ var _pipe2 = _interopRequireDefault(_pipe);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// repeat :: Any -> ReadableStream
+// repeat function takes a value
+// as argument and returns a readable stream
+// that repeatedly emits that value.
+//
+
 function repeat(value) {
   var _ref = new _pipe2.default(regeneratorRuntime.mark(function _callee() {
     return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -36,17 +42,12 @@ function repeat(value) {
       }
     }, _callee, this);
   }), { init: value }),
-      readable = _ref.readable,
-      writable = _ref.writable;
+      readable = _ref.readable;
 
   return readable;
 }
 
 // Browserify compat
-// repeat :: Any -> ReadableStream
-// repeat function takes a value
-// as argument and returns a readable stream
-// that repeatedly emits that value.
-//
-
-if (typeof module !== "undefined") module.exports = repeat;
+if (typeof module !== "undefined")
+  // $FlowFixMe
+  module.exports = repeat;
