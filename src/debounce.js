@@ -1,16 +1,14 @@
 // @flow
 
-// debounce :: Int -> Boolean -> TransformStream
-// debounce function takes an int n and
-// returns a transform stream that debounces
-// the incoming values by n ms, only producing
-// values with n ms delay between them and dropping the rest.
-//
-
 import type { ReadableWritable } from "@pipes/core/streams";
 
 import pipe from "@pipes/core/pipe";
 
+/**
+ * This function takes an int `n` and returns a
+ * `transform stream` that debounces the incoming values by `n` ms,
+ * only producing values with `n` ms delay between them and dropping the rest.
+ */
 export default function debounce(
     wait: number=0, head: boolean=true
 ): ReadableWritable {

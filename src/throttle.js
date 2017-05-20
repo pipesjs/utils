@@ -1,16 +1,14 @@
 // @flow
 
-// throttle :: Int -> Boolean -> TransformStream
-// throttle function takes an int n and
-// returns a transform stream that throttles
-// the incoming values by n ms, only producing
-// values every n ms and dropping the rest.
-//
-
 import type { ReadableStreamController } from "@pipes/core/streams";
 
 import { TransformStream } from "@pipes/core/streams";
 
+/**
+ * This function takes an int `n` and returns a `transform stream`
+ * that throttles the incoming values by `n` ms, only producing
+ * values every `n` ms and dropping the rest.
+ */
 export default function throttle(
     interval: number=0, head: boolean=true
 ): TransformStream {

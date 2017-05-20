@@ -8,13 +8,25 @@ exports.default = take;
 
 var _streams = require("@pipes/core/streams");
 
-// take :: Int -> { readable, writable }
-// take function takes an int n and
-// returns a transform stream
-// that takes the first n values
-// from the input stream.
-//
-
+/**
+ * This function takes an int `n` and returns a `transform stream`
+ * that takes the first `n` values from the input stream.
+ *
+ * @example
+ * let readable, writable,
+ *   count = 0;
+ *
+ * // Create test streams
+ * readable = createTestReadable( [1,2,3,4,5,6] );
+ * writable = createTestWritable( () => count++ );
+ *
+ * // Connect the streams
+ * connect(
+ *   readable,
+ *   take(3),
+ *   writable
+ * ); // count == 3
+ */
 function take(count) {
   var readable = void 0,
       writable = void 0,

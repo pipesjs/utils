@@ -7,13 +7,11 @@ exports.default = throttle;
 
 var _streams = require("@pipes/core/streams");
 
-// throttle :: Int -> Boolean -> TransformStream
-// throttle function takes an int n and
-// returns a transform stream that throttles
-// the incoming values by n ms, only producing
-// values every n ms and dropping the rest.
-//
-
+/**
+ * This function takes an int `n` and returns a `transform stream`
+ * that throttles the incoming values by `n` ms, only producing
+ * values every `n` ms and dropping the rest.
+ */
 function throttle() {
   var interval = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
   var head = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;

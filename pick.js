@@ -11,13 +11,29 @@ var _pipe2 = _interopRequireDefault(_pipe);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// pick :: ...String -> TransformStream
-// pick function takes any number of strings
-// as arguments and returns a transform stream
-// that extracts the passed property names from
-// incoming values.
-//
-
+/**
+ * This function takes any number of `string`s as arguments and
+ * returns a `transform stream` that extracts the passed property names from
+ * incoming values.
+ *
+ * @example
+ * let readable, writable,
+ *   o = {
+ *     'a': 1,
+ *     'b': 2
+ *   };
+ *
+ * // Create test streams
+ * readable = createTestReadable( [o, o, o] );
+ * writable = createTestWritable( c => assert( c.a ) && assert( !c.b ) );
+ *
+ * // Connect the streams
+ * connect(
+ *   readable,
+ *   pick('a'),
+ *   writable
+ * );
+ */
 function pick() {
   for (var _len = arguments.length, props = Array(_len), _key = 0; _key < _len; _key++) {
     props[_key] = arguments[_key];

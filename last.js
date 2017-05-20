@@ -11,11 +11,24 @@ var _accumulate2 = _interopRequireDefault(_accumulate);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// last :: TransformStream
-// last function returns a transform stream
-// that takes the last value from the input stream
-// and enqueues it on the output stream.
-//
+/**
+ * This function returns a `transform stream` that takes
+ * the last value from the input stream and enqueues it on the output stream.
+ *
+ * @example
+ * let readable, writable, el;
+ *
+ * // Create test streams
+ * readable = createTestReadable( [1,2,3,4,5,6] );
+ * writable = createTestWritable( e => { el = e; });
+ *
+ * // Connect the streams
+ * connect(
+ *   readable,
+ *   last(),
+ *   writable
+ * ); // el == 6
+ */
 
 function last() {
   return new _accumulate2.default(function (a, b) {

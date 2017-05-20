@@ -1,12 +1,5 @@
 // @flow
 
-// take :: Int -> { readable, writable }
-// take function takes an int n and
-// returns a transform stream
-// that takes the first n values
-// from the input stream.
-//
-
 import type {
   ReadableWritable,
   ReadableStreamController
@@ -15,6 +8,25 @@ import type {
 
 import { ReadableStream, WritableStream } from "@pipes/core/streams";
 
+/**
+ * This function takes an int `n` and returns a `transform stream`
+ * that takes the first `n` values from the input stream.
+ *
+ * @example
+ * let readable, writable,
+ *   count = 0;
+ *
+ * // Create test streams
+ * readable = createTestReadable( [1,2,3,4,5,6] );
+ * writable = createTestWritable( () => count++ );
+ *
+ * // Connect the streams
+ * connect(
+ *   readable,
+ *   take(3),
+ *   writable
+ * ); // count == 3
+ */
 export default function take( count: number ): ReadableWritable {
   let
     readable: ReadableStream,

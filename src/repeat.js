@@ -1,14 +1,27 @@
 // @flow
 
-// repeat :: Any -> ReadableStream
-// repeat function takes a value
-// as argument and returns a readable stream
-// that repeatedly emits that value.
-//
-
 import type { ReadableWritable } from "@pipes/core/streams";
 
 import Pipe from "@pipes/core/pipe";
+
+/**
+ * This function takes a value as argument and returns a `readable stream`
+ * that repeatedly emits that value.
+ *
+ * @example
+ * let readable, writable, val=1, len=6, sum=0;
+ *
+ * // Create test streams
+ * readable = repeat(val);
+ * writable = createTestWritable( c => { sum+=c });
+ *
+ * // Connect the streams
+ * connect(
+ *   readable,
+ *   take( len ),
+ *   writable
+ * ); // sum == (val * len)
+ */
 
 export default function repeat(value: mixed): ReadableWritable {
 

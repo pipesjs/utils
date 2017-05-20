@@ -17,13 +17,25 @@ var _drop = require("./drop");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// intersperse :: Any -> TransformStream
-// intersperse function takes any value a
-// and returns a transform stream
-// that intersperses the values from
-// the input stream with the passed value.
-//
-
+/**
+ * This function takes any value `a` and returns a `transform stream`
+ * that intersperses the values from the input stream with the `a`.
+ *
+ * @example
+ * let readable, writable,
+ *   res = [];
+ *
+ * // Create test streams
+ * readable = createTestReadable( [1,2,3] );
+ * writable = createTestWritable( c => res.push(c) );
+ *
+ * // Connect the streams
+ * connect(
+ *   readable,
+ *   intersperse(0),
+ *   writable
+ * ); // res == [1,0,2,0,3]
+ */
 function intersperse(val) {
   return (0, _chain2.default)(new _pipe2.default(regeneratorRuntime.mark(function intersperser(chunk) {
     return regeneratorRuntime.wrap(function intersperser$(_context) {

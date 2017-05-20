@@ -7,13 +7,29 @@ exports.default = batch;
 
 var _streams = require("@pipes/core/streams");
 
-// batch :: Int -> TransformStream
-// batch function takes an int n and
-// returns a transform stream that batches the
-// incoming values in arrays of lengths no
-// more than n.
-//
-
+/**
+ * This function takes an int `n` and returns a transform stream
+ * that batches the incoming values in arrays of lengths no
+ * more than `n`.
+ *
+ * @example
+ * let
+ *   input = [1,2,3,4,5],
+ *   expected = [[1,2],[3,4],[5]];
+ *
+ * let readable, writable, res=[];
+ *
+ * // Create test streams
+ * readable = createTestReadable( input );
+ * writable = createTestWritable( c => res.push( c ));
+ *
+ * // Connect the streams
+ * connect(
+ *   readable,
+ *   batch( 2 ),
+ *   writable
+ * ); // res == expected
+ */
 function batch(size) {
 
   var acc = [];

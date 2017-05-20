@@ -1,16 +1,28 @@
 // @flow
 
-// uniq :: TransformStream
-// uniq function returns a transform stream
-// that keeps only the unique values
-// from the input stream
-// and enqueues it on the output stream.
-//
-
 import type { ReadableWritable } from "@pipes/core/streams";
 
 import Pipe from "@pipes/core/pipe";
 
+/**
+ * This function returns a `transform stream` that keeps only unique
+ * values from the input stream and enqueues it on the output stream.
+ *
+ * @example
+ * let readable, writable,
+ *   res = [];
+ *
+ * // Create test streams
+ * readable = createTestReadable( [1,1,2,2,3,3] );
+ * writable = createTestWritable( c => res.push(c) );
+ *
+ * // Connect the streams
+ * connect(
+ *   readable,
+ *   uniq(),
+ *   writable
+ * ); // res == [1,2,3]
+ */
 export default function uniq(): ReadableWritable {
   let seen: Set<mixed> = new Set;
 

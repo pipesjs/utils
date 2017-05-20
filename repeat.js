@@ -11,11 +11,24 @@ var _pipe2 = _interopRequireDefault(_pipe);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// repeat :: Any -> ReadableStream
-// repeat function takes a value
-// as argument and returns a readable stream
-// that repeatedly emits that value.
-//
+/**
+ * This function takes a value as argument and returns a `readable stream`
+ * that repeatedly emits that value.
+ *
+ * @example
+ * let readable, writable, val=1, len=6, sum=0;
+ *
+ * // Create test streams
+ * readable = repeat(val);
+ * writable = createTestWritable( c => { sum+=c });
+ *
+ * // Connect the streams
+ * connect(
+ *   readable,
+ *   take( len ),
+ *   writable
+ * ); // sum == (val * len)
+ */
 
 function repeat(value) {
   var _ref = new _pipe2.default(regeneratorRuntime.mark(function _callee() {

@@ -11,13 +11,25 @@ var _pipe2 = _interopRequireDefault(_pipe);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// uniq :: TransformStream
-// uniq function returns a transform stream
-// that keeps only the unique values
-// from the input stream
-// and enqueues it on the output stream.
-//
-
+/**
+ * This function returns a `transform stream` that keeps only unique
+ * values from the input stream and enqueues it on the output stream.
+ *
+ * @example
+ * let readable, writable,
+ *   res = [];
+ *
+ * // Create test streams
+ * readable = createTestReadable( [1,1,2,2,3,3] );
+ * writable = createTestWritable( c => res.push(c) );
+ *
+ * // Connect the streams
+ * connect(
+ *   readable,
+ *   uniq(),
+ *   writable
+ * ); // res == [1,2,3]
+ */
 function uniq() {
   var seen = new Set();
 
