@@ -1,3 +1,5 @@
+// @flow
+
 // tap :: Function -> TransformStream
 // tap function takes a function as
 // argument and returns a transform stream
@@ -5,11 +7,14 @@
 // values before re-emitting them.
 //
 
+import type { ReadableWritable } from "@pipes/core/streams";
+import type { anyFn } from "@pipes/core/utils";
+
 import Pipe from "@pipes/core/pipe";
 
-export default function tap(func) {
+export default function tap(func: anyFn): ReadableWritable {
 
-  return new Pipe( chunk => {
+  return new Pipe( (chunk: mixed) => {
 
     // Apply
     func( chunk );
@@ -19,5 +24,5 @@ export default function tap(func) {
 
 // Browserify compat
 if ( typeof module !== "undefined" )
+  // $FlowFixMe
   module.exports = tap;
-
