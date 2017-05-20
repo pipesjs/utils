@@ -1,3 +1,5 @@
+// @flow
+
 // batch :: Int -> TransformStream
 // batch function takes an int n and
 // returns a transform stream that batches the
@@ -5,15 +7,17 @@
 // more than n.
 //
 
+import type { ReadableStreamController } from "@pipes/core/streams";
+
 import { TransformStream } from "@pipes/core/streams";
 
-export default function batch(size) {
+export default function batch(size: number): TransformStream {
 
-  let acc = [];
+  let acc: Array<mixed> = [];
 
   return new TransformStream({
 
-    transform( chunk, controller ) {
+    transform( chunk: mixed, controller: ReadableStreamController ) {
       // Add chunk to batch
       acc.push( chunk );
 
@@ -26,7 +30,7 @@ export default function batch(size) {
       }
     },
 
-    flush( controller ) {
+    flush( controller: ReadableStreamController ) {
       // If any unfinished batch remains, enqueue
       if ( acc.length )
         controller.enqueue( acc );
@@ -38,4 +42,5 @@ export default function batch(size) {
 
 // Browserify compat
 if ( typeof module !== "undefined" )
+  // $FlowFixMe
   module.exports = batch;
