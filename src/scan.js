@@ -1,3 +1,5 @@
+// @flow
+
 // scan :: Function -> Any -> TransformStream
 // scan function takes a reducer function and
 // an optional init value as arguments and
@@ -9,13 +11,18 @@
 // incoming value is treated as one.
 //
 
+import type { ReadableWritable } from "@pipes/core/streams";
+
 import Pipe from "@pipes/core/pipe";
 
-export default function scan(func, init) {
+export default function scan<T1,T2>(
+    func: (?T2 | ?T1, ?T1)=>T2,
+    init: ?T1
+): ReadableWritable {
 
-  let res = [], prev = init;
+  let res: Array<T2> = [], prev: ?T1 | ?T2 = init;
 
-  return new Pipe( chunk => {
+  return new Pipe( (chunk: T1) => {
 
     // If first value
     if ( prev === void 0 ) {
@@ -35,5 +42,5 @@ export default function scan(func, init) {
 
 // Browserify compat
 if ( typeof module !== "undefined" )
+  // $FlowFixMe
   module.exports = scan;
-
