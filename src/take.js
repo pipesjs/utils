@@ -67,6 +67,7 @@ export default function take( count: number ): ReadableWritable {
 
 // FIXME: Internal flow.js resolution problem workaround
 export const _take = take;
+take._take = take;
 
 // Browserify compat
 if ( typeof module !== "undefined" )

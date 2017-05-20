@@ -19,6 +19,7 @@ export default function drop(count: number): ReadableWritable {
 
 // FIXME: Internal flow.js resolution problem workaround
 export const _drop = drop;
+drop._drop = drop;
 
 // Browserify compat
 if ( typeof module !== "undefined" )

@@ -11,6 +11,7 @@ import type { ReadableWritable } from "@pipes/core/streams";
 import { _take as take } from "./take";
 
 export default function head(): ReadableWritable {
+  console.log(take);
   return take(1);
 }
 
