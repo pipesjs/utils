@@ -7,11 +7,12 @@
     "build": "babel src -d .",
     "bundle": "browserify --external @pipes-core index.js > dist/pipes.utils.js",
     "flow": "flow",
+    "docs": "documentation build --config documentation.yml src/index.js -f md > README.md",
     "minify": "uglifyjs dist/pipes.utils.js -o dist/pipes.utils.min.js -c",
     "dist": "npm run bundle && npm run minify",
     "build-all": "npm run build && npm run dist",
     "prepublish": "npm run build-all",
-    "test": "mocha --ui qunit --compilers js:babel-register"
+    "test": "flow && mocha --ui qunit --compilers js:babel-register"
   },
   "repository": {
     "type": "git",
@@ -41,6 +42,7 @@
     "babel-register": "^6.6.0",
     "babel-runtime": "^6.6.1",
     "browserify": "^13.0.0",
+    "documentation": "^4.0.0-rc.1",
     "flow-bin": "^0.46.0",
     "mocha": "^2.4.5",
     "uglify-js": "^2.6.2"
