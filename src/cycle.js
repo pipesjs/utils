@@ -1,3 +1,5 @@
+// @flow
+
 // cycle :: Iterable -> ReadableStream
 // cycle function takes an iterable
 // as argument and returns a readable stream
@@ -5,16 +7,18 @@
 //
 
 import Pipe from "@pipes/core/pipe";
+import { ReadableStream } from "@pipes/core/streams";
 
-export default function cycle( iterator ) {
+export default function cycle( iterator: Iterable<mixed> ): ReadableStream {
 
   // Check if not iterator
+  // $FlowFixMe (https://github.com/facebook/flow/issues/1163)
   if ( !iterator[Symbol.iterator] ) {
     iterator = [ iterator ];
   }
 
   let
-  { readable, writable } = new Pipe( function* () {
+  { readable } : { readable: ReadableStream } = new Pipe( function* () {
     while ( true ) {
       yield* iterator;
     }
@@ -26,4 +30,5 @@ export default function cycle( iterator ) {
 
 // Browserify compat
 if ( typeof module !== "undefined" )
+  // $FlowFixMe
   module.exports = cycle;
