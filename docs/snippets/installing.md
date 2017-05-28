@@ -13,7 +13,7 @@ And in your code, all the functions will be available on the `window.Pipes.utils
 
 ```javascript
 
-    let { uniq, compact } = window.Pipes;
+    let { uniq, compact } = window.Pipes.utils;
 ```
 
 ### For browserify users
