@@ -1,4 +1,4 @@
-The `core` library only consists of the following functions:
+The `utils` library only consists of the following functions:
 
  - [batch](#batch)
  - [compact](#compact)
