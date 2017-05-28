@@ -73,7 +73,7 @@ You can use either of the builds from the `dist` folder:
 And in your code, all the functions will be available on the `window.Pipes.utils` variable.
 
 ```javascript
-    let { uniq, compact } = window.Pipes;
+    let { uniq, compact } = window.Pipes.utils;
 ```
 
 ### For browserify users
@@ -104,7 +104,7 @@ If you want, you can directly import the es6 modules like so:
 
 ## API Reference
 
-The `core` library only consists of the following functions:
+The `utils` library only consists of the following functions:
 
 -   [batch](#batch)
 -   [compact](#compact)
